@@ -1,5 +1,6 @@
 // Import required modules
 const { Schema, model } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 
 const ThoughtSchema = new Schema(
   {
@@ -11,6 +12,12 @@ const ThoughtSchema = new Schema(
         validator: (length) => length > 0 && length <= 280,
         message: "Thoughts can only be between 1 and 280 characters long!",
       },
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      // Format the date when getting the createdAt value
+      get: (createdAtVal) => dateFormat(createdAtVal),
     },
     username: {
       type: String,

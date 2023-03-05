@@ -5,7 +5,7 @@ const router = require("express").Router();
 const thoughtRoutes = require("./thought-routes");
 const userRoutes = require("./user-routes");
 
-// Mount the toughtRoutes module on the '/thoughts' path and the userRoutes module on the '/users' path
+// Mount the thoughtRoutes module on the '/thoughts' path and the userRoutes module on the '/users' path
 router.use("/thoughts", thoughtRoutes);
 router.use("/users", userRoutes);
 

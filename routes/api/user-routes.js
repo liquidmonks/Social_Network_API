@@ -1,3 +1,4 @@
+/*
 // Imports necessary modules and controllers
 const express = require("express");
 const router = express.Router();
@@ -13,4 +14,20 @@ router.route("/users/:id").get(userController.getUserByID).put(userController.up
 router.route("/users/:id/friends/:friendID").post(userController.addFriend).delete(userController.deleteFriend);
 
 // Exports router module
+module.exports = router;
+*/
+const router = require("express").Router();
+
+const { getUsers, addUser, getUserByID, updateUser, deleteUser, addFriend, deleteFriend } = require("../../controllers/user-controller");
+
+// /api/users
+router.route("/").get(getUsers).post(addUser);
+
+// /api/users/:id
+router.route("/:id").get(getUserByID).put(updateUser).delete(deleteUser);
+
+// /api/users/:id/friends/:friendId
+
+router.route("/:id/friends/:friendID").post(addFriend).delete(deleteFriend);
+
 module.exports = router;

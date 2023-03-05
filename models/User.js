@@ -20,9 +20,9 @@ const UserSchema = new Schema(
     },
 
     // Adds the reference to the Thoughts schema
-    thoughts: [{ type: Types.ObjectID, ref: "Thought" }],
+    thoughts: [],
     // Adds the reference to the User schema
-    friends: [{ type: Types.ObjectID, ref: "User" }],
+    friends: [this],
   },
   {
     toJSON: {

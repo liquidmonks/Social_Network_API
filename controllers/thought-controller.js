@@ -50,6 +50,19 @@ const thoughtController = {
       res.json(err);
     }
   },
+  // Method to delete a thought by its ID
+  deleteThought: async ({ params }, res) => {
+    try {
+      const thoughtData = await Thought.findByIdAndDelete({ _id: params.thoughtID }, { runValidators: true, new: true });
+      if (!thoughtData) {
+        res.status(404).json({ message: "No thought found with this ID!" });
+        return;
+      }
+      res.json(thoughtData);
+    } catch (err) {
+      res.json(err);
+    }
+  },
 };
 
 // Exports the thoughtController

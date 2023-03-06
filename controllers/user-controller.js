@@ -21,6 +21,16 @@ const userController = {
       res.status(400).json(err);
     }
   },
+  // Method to get a user by ID from the database
+  async getUserByID({ params }, res) {
+    try {
+      const userData = await User.findOne({ _id: params.id });
+      res.json(userData);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
 };
 
+// Exports the userController object
 module.exports = userController;

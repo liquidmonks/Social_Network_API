@@ -3,13 +3,14 @@ const { Thought, User } = require("../models");
 
 // Defines an object called thoughtController with several methods
 const thoughtController = {
-  async getUsers(req, res) {
+  // Method to get all thoughts
+  getThoughts: async (req, res) => {
     try {
-      const userData = await User.findOne({});
-      res.json(userData);
+      const thoughtData = await Thought.find({});
+      res.json(thoughtData);
     } catch (err) {
       console.log(err);
-      res.status(400).json(err);
+      res.status(400), json(err);
     }
   },
 };

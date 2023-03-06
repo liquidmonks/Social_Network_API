@@ -13,6 +13,16 @@ const thoughtController = {
       res.status(400), json(err);
     }
   },
+  // Method to get a single thought by its ID
+  getThoughtByID: async ({ params }, res) => {
+    try {
+      const thoughtData = await Thought.findOne({ _id: params.thoughtID });
+      res.json(thoughtData);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json(err);
+    }
+  },
 };
 
 // Exports the thoughtController

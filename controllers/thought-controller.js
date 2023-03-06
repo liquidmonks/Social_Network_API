@@ -23,6 +23,7 @@ const thoughtController = {
       res.status(400).json(err);
     }
   },
+  // Method to add a new thought
   addThought: async ({ params, body }, res) => {
     try {
       const thought = await Thought.create(body);
@@ -32,6 +33,19 @@ const thoughtController = {
         return;
       }
       res.json(thought);
+    } catch (err) {
+      res.json(err);
+    }
+  },
+  // Method to update a thought by its ID
+  updateThought: async ({ params, body }, res) => {
+    try {
+      const thoughtData = await Thought.findByIdAndUpdate({ _id: params.thoughtID }, body, { runValidators: true, new: true });
+      if (!thoughtData) {
+        res.status(404).json({ message: "No thought found with this ID!" });
+        return;
+      }
+      res.json(thoughtData);
     } catch (err) {
       res.json(err);
     }

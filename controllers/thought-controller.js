@@ -63,6 +63,19 @@ const thoughtController = {
       res.json(err);
     }
   },
+  // Method to add a reaction to a thought
+  addReaction: async ({ params, body }, res) => {
+    try {
+      const thoughtData = await Thought.findOneAndUpdate({ _id: params.thoughtID }, { $push: { reactions: body } }, { new: true, runValidators: true });
+      if (!thoughtData) {
+        res.status(404).json({ message: "Incorrect reaction data!" });
+        return;
+      }
+      res.json(thoughtData);
+    } catch (err) {
+      res.json(err);
+    }
+  },
 };
 
 // Exports the thoughtController

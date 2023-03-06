@@ -76,6 +76,18 @@ const thoughtController = {
       res.json(err);
     }
   },
+  deleteReaction: async ({ params }, res) => {
+    try {
+      const thoughtData = await Thought.findOneAndUpdate({ _id: params.thoughtId }, { $pull: { reactions: { reactionID: params.reactionId } } }, { new: true, runValidators: true });
+      if (!thoughtData) {
+        res.status(404).json({ message: "Incorrect reaction data!" });
+        return;
+      }
+      res.json(thoughtData);
+    } catch (err) {
+      res.json(err);
+    }
+  },
 };
 
 // Exports the thoughtController

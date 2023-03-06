@@ -43,6 +43,19 @@ const userController = {
       res.status(400).json(err);
     }
   },
+  // Method to delete a user by ID from the database
+  async deleteUser({ params }, res) {
+    try {
+      const userData = await User.findOneAndDelete({ _id: params.id });
+      if (!userData) {
+        res.status(400).json({ message: "No user found with this ID!" });
+        return;
+      }
+      res.json(userData);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
 };
 
 // Exports the userController object

@@ -23,6 +23,19 @@ const thoughtController = {
       res.status(400).json(err);
     }
   },
+  addThought: async ({ params, body }, res) => {
+    try {
+      const thought = await Thought.create(body);
+      const user = await User.findOneAndUpdate({ _id: params.userID }, { $push: { thoughts: thought._id } }, { new: true });
+      if (!user) {
+        res.status(400).json({ message: "Incorrect user data!" });
+        return;
+      }
+      res.json(thought);
+    } catch (err) {
+      res.json(err);
+    }
+  },
 };
 
 // Exports the thoughtController

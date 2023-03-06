@@ -69,6 +69,19 @@ const userController = {
       res.status(400).json(err);
     }
   },
+  // Method to delete a friend from a user's friends array by user ID and friend ID
+  async deleteFriend({ params }, res) {
+    try {
+      const userData = await User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.friendID } }, { runValidators: true, new: true });
+      if (!userData) {
+        res.status(404).json({ message: "No user found with this ID!" });
+        return;
+      }
+      res.json(userData);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
 };
 
 // Exports the userController object

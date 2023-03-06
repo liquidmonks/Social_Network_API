@@ -12,6 +12,15 @@ const userController = {
       res.status(400).json(err);
     }
   },
+  // Method to add a new user to the database
+  async addUser({ body }, res) {
+    try {
+      const userData = await User.create(body);
+      res.json(userData);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
 };
 
 module.exports = userController;

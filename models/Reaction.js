@@ -13,9 +13,11 @@ const ReactionSchema = new Schema({
     required: true,
     validate: {
       // The validator function checks the length of the reactionBody field
-      validator: ({ length }) => length <= 280,
+      validator: function (v) {
+        return v.length > 0 && v.length <= 280;
+      },
       // The message to display if the validation fails
-      message: "Reactions cannot be more than 280 characters long!",
+      message: (props) => `${props.value} Reactions cannot be more than 280 characters long!`,
     },
   },
   username: {

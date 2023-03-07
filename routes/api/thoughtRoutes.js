@@ -7,7 +7,7 @@ const thoughtController = require("../../controllers/thoughtController");
 router.route("/").get(thoughtController.getThoughts);
 
 // Route to add a new thought for a user
-router.route("/:userID").post(thoughtController.addThought);
+router.route("/:userId").post(thoughtController.addThought);
 
 // Route to get a specific thought by ID, update a thought, and delete a thought
 router.route("/:thoughtId").get(thoughtController.getThoughtByID).put(thoughtController.updateThought).delete(thoughtController.deleteThought);

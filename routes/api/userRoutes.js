@@ -10,7 +10,7 @@ router.route("/").get(userController.getUsers).post(userController.addUser);
 router.route("/:id").get(userController.getUserByID).put(userController.updateUser).delete(userController.deleteUser);
 
 // Route to add a friend and delete a friend of a user
-router.route("/:id/friends/:friendID").post(userController.addFriend).delete(userController.deleteFriend);
+router.route("/:id/friends/:friendId").post(userController.addFriend).delete(userController.deleteFriend);
 
 // Exports router module
 module.exports = router;

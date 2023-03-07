@@ -16,7 +16,7 @@ const thoughtController = {
   // Method to get a single thought by its ID
   getThoughtByID: async ({ params }, res) => {
     try {
-      const thoughtData = await Thought.findOne({ _id: params.thoughtID });
+      const thoughtData = await Thought.findOne({ _id: params.thoughtId });
       res.json(thoughtData);
     } catch (err) {
       console.log(err);
@@ -27,7 +27,7 @@ const thoughtController = {
   addThought: async ({ params, body }, res) => {
     try {
       const thought = await Thought.create(body);
-      const user = await User.findOneAndUpdate({ _id: params.userID }, { $push: { thoughts: thought._id } }, { new: true });
+      const user = await User.findOneAndUpdate({ _id: params.userId }, { $push: { thoughts: thought._id } }, { new: true });
       if (!user) {
         res.status(400).json({ message: "Incorrect user data!" });
         return;
@@ -40,7 +40,7 @@ const thoughtController = {
   // Method to update a thought by its ID
   updateThought: async ({ params, body }, res) => {
     try {
-      const thoughtData = await Thought.findByIdAndUpdate({ _id: params.thoughtID }, body, { runValidators: true, new: true });
+      const thoughtData = await Thought.findByIdAndUpdate({ _id: params.thoughtId }, body, { runValidators: true, new: true });
       if (!thoughtData) {
         res.status(404).json({ message: "No thought found with this ID!" });
         return;
@@ -53,7 +53,7 @@ const thoughtController = {
   // Method to delete a thought by its ID
   deleteThought: async ({ params }, res) => {
     try {
-      const thoughtData = await Thought.findByIdAndDelete({ _id: params.thoughtID }, { runValidators: true, new: true });
+      const thoughtData = await Thought.findByIdAndDelete({ _id: params.thoughtId }, { runValidators: true, new: true });
       if (!thoughtData) {
         res.status(404).json({ message: "No thought found with this ID!" });
         return;
@@ -66,7 +66,7 @@ const thoughtController = {
   // Method to add a reaction to a thought
   addReaction: async ({ params, body }, res) => {
     try {
-      const thoughtData = await Thought.findOneAndUpdate({ _id: params.thoughtID }, { $push: { reactions: body } }, { new: true, runValidators: true });
+      const thoughtData = await Thought.findOneAndUpdate({ _id: params.thoughtId }, { $push: { reactions: body } }, { new: true, runValidators: true });
       if (!thoughtData) {
         res.status(404).json({ message: "Incorrect reaction data!" });
         return;

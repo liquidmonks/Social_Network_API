@@ -57,9 +57,9 @@ const userController = {
     }
   },
   // Method to add a friend to a user's friends array by user ID
-  async addFriend({ param }, res) {
+  async addFriend({ params }, res) {
     try {
-      const userData = await User.findOneAndUpdate({ _id: params.id }, { $push: { friends: params.friendID } }, { runValidators: true, new: true });
+      const userData = await User.findOneAndUpdate({ _id: params.id }, { $push: { friends: params.friendId } }, { runValidators: true, new: true });
       if (!userData) {
         res.status(400).json({ message: "No user found with this ID!" });
         return;
@@ -72,7 +72,7 @@ const userController = {
   // Method to delete a friend from a user's friends array by user ID and friend ID
   async deleteFriend({ params }, res) {
     try {
-      const userData = await User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.friendID } }, { runValidators: true, new: true });
+      const userData = await User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.friendId } }, { runValidators: true, new: true });
       if (!userData) {
         res.status(404).json({ message: "No user found with this ID!" });
         return;

@@ -2,8 +2,8 @@
 const router = require("express").Router();
 
 // Imports the ThoughtRoutes and userRoutes modules
-const thoughtRoutes = require("./thought-routes");
-const userRoutes = require("./user-routes");
+const thoughtRoutes = require("./thoughtRoutes");
+const userRoutes = require("./userRoutes");
 
 // Mount the thoughtRoutes module on the '/thoughts' path and the userRoutes module on the '/users' path
 router.use("/thoughts", thoughtRoutes);

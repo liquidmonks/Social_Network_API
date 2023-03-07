@@ -59,7 +59,7 @@ const userController = {
   // Method to add a friend to a user's friends array by user ID
   async addFriend({ param }, res) {
     try {
-      const userData = await User.findOneAndUdpate({ _id: params.id }, { $push: { friends: params.friendID } }, { runValidators: true, new: true });
+      const userData = await User.findOneAndUpdate({ _id: params.id }, { $push: { friends: params.friendID } }, { runValidators: true, new: true });
       if (!userData) {
         res.status(400).json({ message: "No user found with this ID!" });
         return;

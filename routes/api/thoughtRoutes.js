@@ -1,8 +1,7 @@
-/*
 // Imports necessary modules and controllers
 const express = require("express");
 const router = express.Router();
-const thoughtController = require("../../controllers/thought-controller");
+const thoughtController = require("../../controllers/thoughtController");
 
 // Defines route to get all thoughts
 router.route("/thoughts").get(thoughtController.getThoughts);
@@ -21,8 +20,8 @@ router.route("/thoughts/:thoughtId/reactions/:reactionId").delete(thoughtControl
 
 // Exports router module
 module.exports = router;
-*/
 
+/*
 const router = require("express").Router();
 
 const { getThoughts, getThoughtByID, addThought, updateThought, deleteThought, addReaction, deleteReaction } = require("../../controllers/thought-controller");
@@ -44,3 +43,4 @@ router.route("/:thoughtId/reactions").post(addReaction);
 router.route("/:thoughtId/reactions/:reactionId").delete(deleteReaction);
 
 module.exports = router;
+*/

@@ -1,5 +1,5 @@
 // Imports the User model from the '../models' module
-const { User } = require("../models");
+const { User, Thought } = require("../models");
 
 const userController = {
   // Method to get all users from the database
@@ -46,11 +46,20 @@ const userController = {
   // Method to delete a user by ID from the database
   async deleteUser({ params }, res) {
     try {
-      const userData = await User.findOneAndDelete({ _id: params.id });
+      const userData = await User.findOne({ _id: params.id });
       if (!userData) {
         res.status(400).json({ message: "No user found with this ID!" });
         return;
       }
+
+      // Delete all thoughts associated with the user
+      await Thought.deleteMany({ username: userData.username });
+
+      if (!deletedUser) {
+        res.status(400).json({ message: "No user found with this ID!" });
+        return;
+      }
+
       res.json(userData);
     } catch (err) {
       res.status(400).json(err);

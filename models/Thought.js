@@ -26,6 +26,10 @@ const thoughtSchema = new Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+      required: true,
+    },
     // Adds the reactions schema to the thought schema
     reactions: [reactionSchema],
   },

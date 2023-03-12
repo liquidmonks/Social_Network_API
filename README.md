@@ -87,7 +87,7 @@ Execute the program on VSCode:
 | HTTP Method 	| Route                                                                               	| Description                                                             	|
 |-------------	|-------------------------------------------------------------------------------------	|-------------------------------------------------------------------------	|
 | POST        	| http://localhost:3001/api/thoughts/:thoughtId/reactions                             	| To create a reaction stored in a single thought's reactions array field 	|
-| DELETE      	| http://localhost:3001/api/thoughts/:thoughtId/reactions?reactionId=<reactionID>	| To pull and remove a reaction by the reaction's `reactionId` value      	|
+| DELETE      	| http://localhost:3001/api/thoughts/:thoughtId/reactions/reactionId     	|
 
 
 

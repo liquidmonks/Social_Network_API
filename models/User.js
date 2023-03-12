@@ -20,7 +20,13 @@ const UserSchema = new Schema(
     },
 
     // Adds the reference to the Thoughts schema
-    thoughts: [],
+    thoughts: [
+      {
+        _id: false,
+        text: String,
+        id: String,
+      },
+    ],
     // Adds the reference to the User schema
     friends: [this],
   },

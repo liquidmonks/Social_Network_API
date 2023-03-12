@@ -90,15 +90,26 @@ Execute the program on VSCode:
 | DELETE      	| http://localhost:3001/api/thoughts/:thoughtId/reactions?reactionId=<reactionID>	| To pull and remove a reaction by the reaction's `reactionId` value      	|
 
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-
-
 
 ## Application Demo Snippet
 ![blogger](https://user-images.githubusercontent.com/114820394/217341898-0a4584f5-f602-4f7a-9547-c36c68f11348.gif)
+
+Users:
+
+https://user-images.githubusercontent.com/114820394/224566915-03971416-cdc7-41f9-b714-1509dcec17c8.mp4
+
+Thoughts:
+https://user-images.githubusercontent.com/114820394/224566957-9287626d-7b1e-4fdb-a53b-0dac020cbf34.mp4
+
+Friends:
+https://user-images.githubusercontent.com/114820394/224567244-b01a2c67-def5-438f-a979-cb90bd184a82.mp4
+
+Reactions:
+https://user-images.githubusercontent.com/114820394/224567288-64ee4ccb-ea34-401f-9c55-158995ecf61a.mp4
+
+Delete User & Thought:
+https://user-images.githubusercontent.com/114820394/224567307-4ec97e70-15fe-4430-b95f-f13281dccdc5.mp4
+
 
 ## Tech Stack
 

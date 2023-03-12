@@ -92,13 +92,12 @@ Execute the program on VSCode:
 
 
 ## Application Demo Snippet
-![blogger](https://user-images.githubusercontent.com/114820394/217341898-0a4584f5-f602-4f7a-9547-c36c68f11348.gif)
-
-Users:
+  
+###usersClip:
 
 https://user-images.githubusercontent.com/114820394/224566915-03971416-cdc7-41f9-b714-1509dcec17c8.mp4
 
-Thoughts:
+###TthoughtsClip:
 https://user-images.githubusercontent.com/114820394/224566957-9287626d-7b1e-4fdb-a53b-0dac020cbf34.mp4
 
 Friends:

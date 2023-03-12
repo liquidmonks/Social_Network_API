@@ -93,11 +93,11 @@ Execute the program on VSCode:
 
 ## Application Demo Snippet
   
-###usersClip:
+Users:
 
 https://user-images.githubusercontent.com/114820394/224566915-03971416-cdc7-41f9-b714-1509dcec17c8.mp4
 
-###TthoughtsClip:
+Thoughts:
 https://user-images.githubusercontent.com/114820394/224566957-9287626d-7b1e-4fdb-a53b-0dac020cbf34.mp4
 
 Friends:

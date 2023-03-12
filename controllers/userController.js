@@ -46,21 +46,15 @@ const userController = {
   // Method to delete a user by ID from the database
   async deleteUser({ params }, res) {
     try {
-      const userData = await User.findOne({ _id: params.id });
+      const userData = await User.findById(params.id);
       if (!userData) {
         res.status(400).json({ message: "No user found with this ID!" });
         return;
       }
 
-      // Delete all thoughts associated with the user
-      await Thought.deleteMany({ username: userData.username });
-
-      if (!deletedUser) {
-        res.status(400).json({ message: "No user found with this ID!" });
-        return;
-      }
-
-      res.json(userData);
+      await Thought.deleteMany({ _id: { $in: userData.thoughts.map((t) => t.id) } });
+      await userData.delete();
+      res.json({ message: "User has been deleted" });
     } catch (err) {
       res.status(400).json(err);
     }

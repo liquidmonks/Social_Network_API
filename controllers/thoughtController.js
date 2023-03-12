@@ -10,13 +10,13 @@ const thoughtController = {
       res.json(thoughtData);
     } catch (err) {
       console.log(err);
-      res.status(400).json(err);
+      res.status(400), json(err);
     }
   },
   // Method to get a single thought by its ID
   getThoughtByID: async ({ params }, res) => {
     try {
-      const thoughtData = await Thought.findOne({ _id: params.thoughtId });
+      const thoughtData = await Thought.findById(params.thoughtId);
       res.json(thoughtData);
     } catch (err) {
       console.log(err);
@@ -26,50 +26,71 @@ const thoughtController = {
   // Method to add a new thought
   addThought: async ({ params, body }, res) => {
     try {
-      const user = await User.findById(params.userId);
+      const user = await User.findOne({ _id: params.userId });
+
       if (!user) {
-        res.status(400).json({ message: "Invalid user ID!" });
+        res.status(400).json({ message: "Incorrect user data!" });
         return;
       }
 
-      const thought = await Thought.create(body);
-      user.thoughts.push(thought);
-      await user.save();
+      const thought = await Thought.create({
+        thoughtText: body.thoughtText,
+        userId: user._id,
+        username: user.username,
+        reactions: [],
+      });
+
+      await user.updateOne({ $push: { thoughts: { text: thought.thoughtText, id: thought._id } } });
+
       res.json(thought);
     } catch (err) {
       res.json(err);
     }
   },
   // Method to update a thought by its ID
+  // updateThought: async ({ params, body }, res) => {
+  //   try {
+  //     const thoughtData = await Thought.findByIdAndUpdate({ _id: params.thoughtId }, body, { runValidators: true, new: true });
+  //     await User.findOneAndUpdate({ _id: thoughtData.userId }, { $pull: { thoughts: { id: thoughtData._id } } }, { new: true });
+  //     await User.findOneAndUpdate({ _id: thoughtData.userId }, { $push: { thoughts: { text: thoughtData.thoughtText, id: thoughtData._id } } }, { new: true });
+
+  //     if (!thoughtData) {
+  //       res.status(404).json({ message: "No thought found with this ID!" });
+  //       return;
+  //     }
+  //     res.json(thoughtData);
+  //   } catch (err) {
+  //     res.json(err);
+  //   }
+  // },
   updateThought: async ({ params, body }, res) => {
     try {
-      const thoughtData = await Thought.findByIdAndUpdate({ _id: params.thoughtId }, body, { runValidators: true, new: true });
+      const thoughtData = await Thought.findByIdAndUpdate(params.thoughtId, body, { runValidators: true, new: true });
       if (!thoughtData) {
         res.status(404).json({ message: "No thought found with this ID!" });
         return;
       }
+      await User.findOneAndUpdate({ _id: thoughtData.userId, "thoughts.id": thoughtData._id }, { $set: { "thoughts.$.text": thoughtData.thoughtText } }, { new: true });
       res.json(thoughtData);
     } catch (err) {
-      res.json(err);
+      res.status(500).json({ message: "Internal server error" });
     }
   },
+
   // Method to delete a thought by its ID
   deleteThought: async ({ params }, res) => {
     try {
-      const thoughtData = await Thought.findByIdAndDelete({ _id: params.thoughtId }, { runValidators: true, new: true });
+      const thoughtData = await Thought.findById(params.thoughtId);
       if (!thoughtData) {
         res.status(404).json({ message: "No thought found with this ID!" });
         return;
       }
 
-      // Remove the thought from the user's thoughts array
-      const userData = await User.findOneAndUpdate({ _id: thoughtData.userId }, { $pull: { thoughts: params.thoughtId } }, { new: true });
-      if (!userData) {
-        res.status(400).json({ message: "No user found with this ID!" });
-        return;
-      }
+      await User.findOneAndUpdate({ username: thoughtData.username }, { $pull: { thoughts: { id: thoughtData._id } } }, { new: true });
 
-      res.json(thoughtData);
+      await thoughtData.delete();
+
+      res.json({ message: "Thought has been deleted" });
     } catch (err) {
       res.json(err);
     }
@@ -87,10 +108,9 @@ const thoughtController = {
       res.json(err);
     }
   },
-  // Method to delete a reaction from a thought
   deleteReaction: async ({ params }, res) => {
     try {
-      const thoughtData = await Thought.findOneAndUpdate({ _id: params.thoughtId }, { $pullAll: { reactions: { reactionId: params.reactionId } } }, { new: true, runValidators: true });
+      const thoughtData = await Thought.findOneAndUpdate({ _id: params.thoughtId }, { $pull: { reactions: { reactionID: params.reactionId } } }, { new: true, runValidators: true });
       if (!thoughtData) {
         res.status(404).json({ message: "Incorrect reaction data!" });
         return;
